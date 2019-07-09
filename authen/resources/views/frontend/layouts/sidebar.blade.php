@@ -1,3 +1,4 @@
+
 <!--A Design by W3layouts
 Author: W3layout
 Author URL: http://w3layouts.com
@@ -12,7 +13,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <body>
 @include("frontend.partials.header")
-@yield('content')
+<div class="sub-banner my-banner2">
+</div>
+<div class="content">
+    <div class="container">
+        @yield("frontend.partials.sidebar")
+        @yield("content")
+    </div>
+</div>
 @include("frontend.partials.newsletter")
 @include("frontend.partials.footer")
 
