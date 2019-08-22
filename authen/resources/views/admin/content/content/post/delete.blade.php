@@ -1,6 +1,6 @@
 @extends('admin.layouts.glance')
 @section('title')
-    Xóa bài viết
+    Quản trị bài viết
 @endsection
 @section('content')
     <h1>Xóa bài viết{{ $post->id. ' : ' .$post->name}}</h1>

@@ -20,7 +20,8 @@ class LoginController extends Controller
      * phương thức này trả về view dùng để đăng nhập cho admin
      * */
     public function login(){
-        return view('admin.auth.login');
+      //  return view('admin.auth.login');
+        return view('admin.auth.logintemplate');
     }
 
     /*
