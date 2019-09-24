@@ -11,13 +11,49 @@
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.homepages.index');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+/*
+ * Homepage route
+ * */
+Route::get('/','Frontend\HomePageController@index');
+
+/*
+ * Frontend route shop category
+ * */
+Route::get('shop/category/{id}','Frontend\ShopCategoryController@detail');
+/*
+ * Frontend route shop product
+ * */
+Route::get('shop/product/{id}','Frontend\ShopProductController@detail');
+/*
+ * Frontend route cart giỏ hàng
+ * */
+Route::get('shop/cart','Frontend\ShopCartController@index');
+/*
+ * Frontend route payment thanh toán
+ * */
+Route::get('shop/payment','Frontend\ShopPaymentController@index');
+/*
+ * Frontend route CMS Page
+ * */
+Route::get('page/{id}','Frontend\ContentPageController@detail');
+/*
+ * Frontend route content category
+ * */
+Route::get('content/category/{id}','Frontend\ContentCategoryController@detail');
+/*
+ * Frontend route content tag
+ * */
+Route::get('content/tag/{id}','Frontend\ContentTagController@detail');
+/*
+ * Frontend route content post
+ * */
+Route::get('content/post/{id}','Frontend\ContentPostController@detail');
+
+
+
 /*
  * Route cho administrator
  * */

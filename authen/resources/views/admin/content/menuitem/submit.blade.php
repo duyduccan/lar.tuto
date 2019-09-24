@@ -26,6 +26,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="focusedinput" class="col-sm-2 control-label">Sắp xếp</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="sort" value="{{old('sort')}}" class="form-control1" id="focusedinput" placeholder="Nhập thứ tự sắp xếp">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="focusedinput" class="col-sm-2 control-label">Kiểu menu item</label>
                     <div class="col-sm-8">
                         <select id="menu-type" name="type">
@@ -39,7 +45,7 @@
                 <div id="type-1" class="form-group menu-type">
                     <label for="focusedinput" class="col-sm-2 control-label">Shop category</label>
                     <div class="col-sm-8">
-                        <select name="shop_category">
+                        <select name="params_1">
                             @foreach($shop_categories as $shop_category)
                                 <option value="{{$shop_category->id}}">{{$shop_category->id}} - {{$shop_category->name}}</option>
                             @endforeach
@@ -50,7 +56,7 @@
                 <div id="type-2" class="form-group menu-type">
                     <label for="focusedinput" class="col-sm-2 control-label">Shop product</label>
                     <div class="col-sm-8">
-                        <select name="shop_product">
+                        <select name="params_2">
                             @foreach($shop_products as $shop_product)
                                 <option value="{{$shop_product->id}}">{{$shop_product->id}} - {{$shop_product->name}}</option>
                             @endforeach
@@ -61,7 +67,7 @@
                 <div id="type-3" class="form-group menu-type">
                     <label for="focusedinput" class="col-sm-2 control-label">Content category</label>
                     <div class="col-sm-8">
-                        <select name="content_category">
+                        <select name="params_3">
                             @foreach($content_categories as $content_category)
                                 <option value="{{$content_category->id}}">{{$content_category->id}} - {{$content_category->name}}</option>
                             @endforeach
@@ -72,7 +78,7 @@
                 <div id="type-4" class="form-group menu-type">
                     <label for="focusedinput" class="col-sm-2 control-label">Content post</label>
                     <div class="col-sm-8">
-                        <select name="content_post">
+                        <select name="params_4">
                             @foreach($content_posts as $content_post)
                                 <option value="{{$content_post->id}}">{{$content_post->id}} - {{$content_post->name}}</option>
                             @endforeach
@@ -83,7 +89,7 @@
                 <div id="type-5" class="form-group menu-type">
                     <label for="focusedinput" class="col-sm-2 control-label">Content page</label>
                     <div class="col-sm-8">
-                        <select name="content_page">
+                        <select name="params_5">
                             @foreach($content_pages as $content_page)
                                 <option value="{{$content_page->id}}">{{$content_page->id}} - {{$content_page->name}}</option>
                             @endforeach
@@ -94,7 +100,7 @@
                 <div id="type-6" class="form-group menu-type">
                     <label for="focusedinput" class="col-sm-2 control-label">Content tag</label>
                     <div class="col-sm-8">
-                        <select name="content_tag">
+                        <select name="params_6">
                             @foreach($content_tags as $content_tag)
                                 <option value="{{$content_tag->id}}">{{$content_tag->id}} - {{$content_tag->name}}</option>
                             @endforeach
@@ -105,7 +111,7 @@
                 <div id="type-7" class="form-group menu-type">
                     <label for="focusedinput" class="col-sm-2 control-label">Custom link</label>
                     <div class="col-sm-8">
-                        <input name="custom_link" value="" class="form-control1" id="focusedinput" placeholder="EX: www.google.com">
+                        <input name="params_7" value="" class="form-control1" id="focusedinput" placeholder="EX: www.google.com">
                     </div>
                 </div>
 
