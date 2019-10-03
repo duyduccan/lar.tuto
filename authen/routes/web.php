@@ -304,18 +304,18 @@ Route::prefix('admin')->group(function(){
     Route::get('config','Admin\ConfigController@index');
     Route::post('config','Admin\ConfigController@store');
     /*
-     * ------------Route admin newletters-----------------------
+     * ------------Route admin newsletters-----------------------
      * -----------------------------------
      * -----------------------------------
      * */
-    Route::get('newletters','Admin\NewslettersController@index');
-    Route::get('newletters/create','Admin\NewslettersController@create');
-    Route::get('newletters/{id}/edit','Admin\NewslettersController@edit');
-    Route::get('newletters/{id}/delete','Admin\NewslettersController@delete');
+    Route::get('newsletters','Admin\NewslettersController@index');
+    Route::get('newsletters/create','Admin\NewslettersController@create');
+    Route::get('newsletters/{id}/edit','Admin\NewslettersController@edit');
+    Route::get('newsletters/{id}/delete','Admin\NewslettersController@delete');
 
-    Route::post('newletters','Admin\NewslettersController@store');
-    Route::post('newletters/{id}','Admin\NewslettersController@update');
-    Route::post('newletters/{id}/delete','Admin\NewslettersController@destroy');
+    Route::post('newsletters','Admin\NewslettersController@store');
+    Route::post('newsletters/{id}','Admin\NewslettersController@update');
+    Route::post('newsletters/{id}/delete','Admin\NewslettersController@destroy');
     /*
     * ------------Route admin banners-----------------------
     * -----------------------------------
