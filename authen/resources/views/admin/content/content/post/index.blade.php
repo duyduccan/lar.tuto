@@ -26,9 +26,9 @@
                     <tr>
                         <th scope="row">{{$post->id}}</th>
                         <td>{{$post->name}}</td>
-                        <td>{{$post->images}}</td>
                         <td>{{$post->author_id}}</td>
                         <td>{{$post->view}}</td>
+                        <td>{{$post->images}}</td>
                         <td>
                             <a href="{{url('admin/content/post/'.$post->id.'/edit')}}" class="btn btn-warning">Sửa</a>
                             <a href="{{url('admin/content/post/'.$post->id.'/delete ')}}" class="btn btn-danger">Xóa</a>

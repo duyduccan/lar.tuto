@@ -26,9 +26,9 @@
                     <tr>
                         <th scope="row">{{$page->id}}</th>
                         <td>{{$page->name}}</td>
-                        <td>{{$page->images}}</td>
                         <td>{{$page->author_id}}</td>
                         <td>{{$page->view}}</td>
+                        <td>{{$page->images}}</td>
                         <td>
                             <a href="{{url('admin/content/page/'.$page->id.'/edit')}}" class="btn btn-warning">Sửa</a>
                             <a href="{{url('admin/content/page/'.$page->id.'/delete ')}}" class="btn btn-danger">Xóa</a>

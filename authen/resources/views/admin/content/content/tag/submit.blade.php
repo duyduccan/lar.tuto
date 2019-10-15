@@ -51,5 +51,12 @@
             </form>
         </div>
     </div>
+    <script src="{{asset('/vendor/laravel-filemanager/js/lfm.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var domain = "http://localhost:8888/lar.tuto/authen/public/laravel-filemanager";
+            $('.lfm-btn').filemanager('image', {prefix: domain});
+        });
+    </script>
 @endsection
 

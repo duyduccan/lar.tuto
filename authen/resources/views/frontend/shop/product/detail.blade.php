@@ -6,6 +6,19 @@
     <?php
     $images = (isset($product->images) && $product->images) ? json_decode($product->images) : array();
     ?>
+    <!--flex slider-->
+    <script defer src="{{asset('frontend_assets/js/jquery.flexslider.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('frontend_assets/css/flexslider.css')}}" type="text/css" media="screen" />
+    <script>
+        // Can also be used with $(document).ready()
+        $(window).load(function() {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+    </script>
+    <!--flex slider-->
 <div class="products">
     <div class="container">
         <div class="single-page">
@@ -23,7 +36,7 @@
                 </div>
                 <div class="col-md-6 single-top-right">
                     <h3 class="item_name">{{ $product->name }}</h3>
-                    <p>Processing Time: Item will be shipped out within 2-3 working days. </p>
+                    <p>{{ $product->ship_info }} </p>
                     <div class="single-rating">
                         <ul>
                             <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
@@ -96,7 +109,7 @@
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <?php echo $product->additional_information ?>
                         </div>
                     </div>
                 </div>
@@ -110,7 +123,7 @@
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                         <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <?php echo $product->review ?>
                         </div>
                     </div>
                 </div>
@@ -124,7 +137,7 @@
                     </div>
                     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                         <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <?php echo $product->help ?>
                         </div>
                     </div>
                 </div>

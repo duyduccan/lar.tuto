@@ -26,9 +26,9 @@
                     <tr>
                         <th scope="row">{{$tag->id}}</th>
                         <td>{{$tag->name}}</td>
-                        <td>{{$tag->images}}</td>
                         <td>{{$tag->author_id}}</td>
                         <td>{{$tag->view}}</td>
+                        <td>{{$tag->images}}</td>
                         <td>
                             <a href="{{url('admin/content/tag/'.$tag->id.'/edit')}}" class="btn btn-warning">Sửa</a>
                             <a href="{{url('admin/content/tag/'.$tag->id.'/delete ')}}" class="btn btn-danger">Xóa</a>
