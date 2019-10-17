@@ -18,6 +18,9 @@ Route::get('/home', 'HomeController@index')->name('home');
  * Homepage route
  * */
 Route::get('/','Frontend\HomePageController@index');
+Route::get('/search','Frontend\SearchController@index');
+Route::post('/newsletter','Frontend\NewsletterController@store');
+Route::get('/newsletter','Frontend\NewsletterController@index');
 
 /*
  * Frontend route shop category
@@ -39,6 +42,8 @@ Route::post('shop/cart/clear','Frontend\ShopCartController@clear');
  * Frontend route payment thanh toán
  * */
 Route::get('shop/payment','Frontend\ShopPaymentController@index');
+Route::post('shop/payment','Frontend\ShopPaymentController@order');
+Route::get('shop/payment/after','Frontend\ShopPaymentController@afterOrder');
 /*
  * Frontend route CMS Page
  * */
@@ -142,9 +147,23 @@ Route::prefix('admin')->group(function(){
     Route::post('shop/product/{id}','Admin\ShopProductController@update');
     Route::post('shop/product/{id}/delete','Admin\ShopProductController@destroy');
 
-    Route::get('shop/order',function(){
-        return view('admin.content.shop.order.index');
-    });
+    /*
+    * ------------Route admin shopping order-----------------------
+    * -----------------------------------
+    * -----------------------------------
+    * */
+    Route::get('shop/order','Admin\ShopOrderController@index');
+    Route::get('shop/order/{id}/edit','Admin\ShopOrderController@edit');
+    Route::get('shop/order/{id}/delete','Admin\ShopOrderController@delete');
+
+    Route::post('shop/order/{id}','Admin\ShopOrderController@update');
+    Route::post('shop/order/{id}/delete','Admin\ShopOrderController@destroy');
+
+    /*
+    * ------------Route admin shopping review-----------------------
+    * -----------------------------------
+    * -----------------------------------
+    * */
     Route::get('shop/review',function(){
         return view('admin.content.shop.review.index');
     });

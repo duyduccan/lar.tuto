@@ -37,6 +37,15 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="focusedinput" class="col-sm-2 control-label">Homepage</label>
+                    <div class="col-sm-8">
+                        <select name="homepage">
+                            <option value="0">Không</option>
+                            <option value="1">Có</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="focusedinput" class="col-sm-2 control-label">Slug</label>
                     <div class="col-sm-8">
                         <input type="text" name="slug" value="{{old('slug')}}" class="form-control1" id="focusedinput" placeholder="Default Input">

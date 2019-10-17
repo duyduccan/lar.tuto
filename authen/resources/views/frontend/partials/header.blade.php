@@ -6,7 +6,7 @@
         <div class="col-md-6 phone-w3l">
             <ul>
                 <li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></li>
-                <li>+18045403380</li>
+                <li>+0374444261</li>
             </ul>
         </div>
         <div class="clearfix"></div>
@@ -44,7 +44,8 @@
             });
         </script>
         <div class="col-md-4 search-agileinfo">
-            <form action="#" method="post">
+            <form action="{{ url('/search') }}" method="get">
+                @csrf
                 <input type="search" name="Search" placeholder="Search for a Product..." required="">
                 <button type="submit" class="btn btn-default search" aria-label="Left Align">
                     <i class="fa fa-search" aria-hidden="true"> </i>
@@ -56,7 +57,7 @@
                 <form action="{{ url('shop/cart') }}" method="get" class="last">
                     <button class="w3view-cart" type="submit" name="submit" value="">
                         <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                        <span id="num-cart">3</span>
+                        <span id="num-cart">{{ \Cart::getTotalQuantity() }}</span>
                     </button>
                 </form>
             </div>
@@ -84,7 +85,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var add_cart_url = '<?php echo url('shop/cart/add') ?>';
-        $('.pw3ls-cart').on('click',function(e){
+        $('.pw3ls-cart,.w3ls-cart').on('click',function(e){
             e.preventDefault();
 
             var dataPost = $(this).closest('form').serializeArray();

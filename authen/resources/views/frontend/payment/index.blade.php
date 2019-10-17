@@ -114,7 +114,7 @@
     <div id="custom-cart">
         <div class="checkout">
             <div class="container">
-                <h3>Your shopping cart contains: <span>3 Products</span></h3>
+                <h3>Your shopping cart contains: <span>{{ $total_qtt_cart }} Products</span></h3>
                 <!---728x90--->
 
                 <div class="checkout-right">
@@ -125,52 +125,33 @@
                             <th>Product</th>
                             <th>Quality</th>
                             <th>Product Name</th>
-                            <th>Service Charges</th>
-                            <th>Price</th>
+                            <th>Giá SP</th>
+                            <th>Giá SL</th>
                         </tr>
                         </thead>
-                        <tbody><tr class="rem1">
-                            <td class="invert">1</td>
-                            <td class="invert-image"><a href="single.html"><img src="images/j3.jpg" alt=" " class="img-responsive"></a></td>
+                        <tbody>
+                        <?php $i = 1;?>
+                        @foreach($cart_products as $product)
+                        <tr class="rem{{ $i }}">
+                            <td class="invert">{{ $i }}</td>
+                            <?php
+                            $product_id = $product->id;
+                            $images = (isset($products[$product_id]->images) && $products[$product_id]->images) ? json_decode($products[$product_id]->images) : array();
+                            ?>
+                            <td class="invert-image"><a href="{{ url('shop/product/'.$product_id) }}">
+                                    @foreach($images as $image)
+                                        <img src="{{ asset($image) }}" style="max-width:150px;" alt=" " class="img-responsive">
+                                        @break;
+                                    @endforeach
+                                </a></td>
                             <td class="invert">
-                            3
+                                {{ $product->quantity }}
                             </td>
-                            <td class="invert">Beige solid Chinos</td>
-                            <td class="invert">$5.00</td>
-                            <td class="invert">$200.00</td>
+                            <td class="invert">{{ $product->name }}</td>
+                            <td class="invert">VND {{ number_format($product->price) }}</td>
+                            <td class="invert">VND {{ number_format($product->price*$product->quantity) }}</td>
                         </tr>
-                        <tr class="rem2">
-                            <td class="invert">2</td>
-                            <td class="invert-image"><a href="single.html"><img src="images/ss5.jpg" alt=" " class="img-responsive"></a></td>
-                            <td class="invert">
-                            1
-                            </td>
-                            <td class="invert">Floral Border Skirt</td>
-                            <td class="invert">$5.00</td>
-                            <td class="invert">$270.00</td>
-                        </tr>
-                        <tr class="rem3">
-                            <td class="invert">3</td>
-                            <td class="invert-image"><a href="single.html"><img src="images/c7.jpg" alt=" " class="img-responsive"></a></td>
-                            <td class="invert">
-                            2
-                            </td>
-                            <td class="invert">Beige Sandals</td>
-                            <td class="invert">$5.00</td>
-                            <td class="invert">$212.00</td>
-                        </tr>
-                        <!--quantity-->
-                        <script>
-                            $('.value-plus').on('click', function(){
-                                var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-                                divUpd.text(newVal);
-                            });
-
-                            $('.value-minus').on('click', function(){
-                                var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-                                if(newVal>=1) divUpd.text(newVal);
-                            });
-                        </script>
+                        @endforeach
                         <!--quantity-->
                         </tbody></table>
                 </div>
@@ -268,33 +249,32 @@
             }
         }
     </style>
+
+    <h1>VND <?php echo number_format($total_payment)?></h1>
+
     <div id="w3payment">
         <div class="row">
 
             <div class="col-75">
                 <div class="container">
-                    <form action="/action_page.php">
-
+                    <form name="order_form" action="{{ url('shop/payment') }}" method="post">
+                        @csrf
                         <div class="row">
                             <div class="col-50">
                                 <h3>Billing Address</h3>
-                                <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                                <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+                                <label for="fname"><i class="fa fa-user"></i> Tên</label>
+                                <input type="text" id="fname" name="customer_name" placeholder="John M. Doe">
                                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                                <input type="text" id="email" name="email" placeholder="john@example.com">
-                                <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                                <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-                                <label for="city"><i class="fa fa-institution"></i> City</label>
-                                <input type="text" id="city" name="city" placeholder="New York">
+                                <input type="text" id="email" name="customer_email" placeholder="john@example.com">
 
                                 <div class="row">
                                     <div class="col-50">
-                                        <label for="state">State</label>
-                                        <input type="text" id="state" name="state" placeholder="NY">
+                                        <label for="state">Quốc gia</label>
+                                        <input type="text" id="customer_country" name="customer_country" placeholder="VN">
                                     </div>
                                     <div class="col-50">
-                                        <label for="zip">Zip</label>
-                                        <input type="text" id="zip" name="zip" placeholder="10001">
+                                        <label for="zip">SDT</label>
+                                        <input type="text" id="customer_phone" name="customer_phone" placeholder="0986666686">
                                     </div>
                                 </div>
                             </div>
@@ -308,29 +288,19 @@
                                     <i class="fa fa-cc-mastercard" style="color:red;"></i>
                                     <i class="fa fa-cc-discover" style="color:orange;"></i>
                                 </div>
-                                <label for="cname">Name on Card</label>
-                                <input type="text" id="cname" name="cardname" placeholder="John More Doe">
-                                <label for="ccnum">Credit card number</label>
-                                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-                                <label for="expmonth">Exp Month</label>
-                                <input type="text" id="expmonth" name="expmonth" placeholder="September">
 
-                                <div class="row">
-                                    <div class="col-50">
-                                        <label for="expyear">Exp Year</label>
-                                        <input type="text" id="expyear" name="expyear" placeholder="2018">
-                                    </div>
-                                    <div class="col-50">
-                                        <label for="cvv">CVV</label>
-                                        <input type="text" id="cvv" name="cvv" placeholder="352">
-                                    </div>
-                                </div>
+                                <label for="adr"><i class="fa fa-address-card-o"></i> ĐC</label>
+                                <input type="text" id="adr" name="customer_address" placeholder="542 W. 15th Street">
+                                <label for="city"><i class="fa fa-institution"></i> TP</label>
+                                <input type="text" id="city" name="customer_city" placeholder="New York">
+
                             </div>
 
                         </div>
-                        <label>
-                            <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-                        </label>
+                        <div>
+                            <label>Ghi chú</label>
+                            <textarea name="customer_note" rows="10" style="width:100%"></textarea>
+                        </div>
                         <input type="submit" value="Continue to checkout" class="btn">
                     </form>
                 </div>

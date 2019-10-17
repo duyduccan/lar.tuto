@@ -1,6 +1,6 @@
 @extends('frontend.layouts.fashion')
 @section('title')
-    Danh mục {{ $category->name }}
+    Trang search
 @endsection
 @section('content')
 
@@ -8,28 +8,14 @@
 </div>
 <div class="content">
     <div class="container">
-        <div class="col-md-4 w3ls_dresses_grid_left">
-            <div class="w3ls_dresses_grid_left_grid">
-                <h3>Categories</h3>
-                <div class="w3ls_dresses_grid_left_grid_sub">
-                    <div class="ecommerce_dres-type">
-                        <ul>
-                            <li><a href="women.html">Dresses</a></li>
-                            <li><a href="women.html">Sarees</a></li>
-                            <li><a href="women.html">Shorts & Skirts</a></li>
-                            <li><a href="women.html">Jeans</a></li>
-                            <li><a href="women.html">Shirts</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8 col-sm-8 women-dresses">
+        <div class="col-md-12 col-sm-12 women-dresses">
+            @if($result->count() < 1)
+                <h2>No result {{ $result->count() }}</h2>
+            @endif
             <?php $i = 0; ?>
                 <div class="women-set1">
-            @foreach($products as $product)
+            @foreach($result as $product)
                 <?php
-                    // 0 3 6 9 12
                 if(($i % 3) == 0){
                     ?>
                     <div class="clearfix"></div>
@@ -66,14 +52,14 @@
                         <i class="fa fa-star yellow-star" aria-hidden="true"></i>
                         <i class="fa fa-star gray-star" aria-hidden="true"></i>
                         <h4>{{ $product->name }}</h4>
-                        <h5>VND {{ $product->priceSale }}</h5>
+                        <h5>VND <?php echo number_format($product->priceSale)?></h5>
                     </div>
 
                 <?php $i++; ?>
             @endforeach
                 </div>
                 <div class="clearfix"></div>
-                {{$products->links() }}
+                {{$result->links() }}
         </div>
     </div>
 </div>

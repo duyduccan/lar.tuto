@@ -31,6 +31,15 @@
                         <input type="text" name="slug" class="form-control1" id="focusedinput" value="{{$cat->slug}}" placeholder="Default Input">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-2 control-label">Homepage</label>
+                    <div class="col-sm-8">
+                        <select name="homepage">
+                            <option value="0" <?php echo $cat->homepage == 0 ? 'selected' : '' ?>>Không</option>
+                            <option value="1" <?php echo $cat->homepage == 1 ? 'selected' : '' ?>>Có</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label for="focusedinput" class="col-sm-2 control-label">Images</label>

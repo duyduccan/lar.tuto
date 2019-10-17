@@ -114,7 +114,7 @@
     <div id="custom-cart">
         <div class="checkout">
             <div class="container">
-                <h3>Your shopping cart contains: <span>3 Products</span></h3>
+                <h3>Your shopping cart contains: <span>{{$total_qtt_cart}} Products</span></h3>
                 <!---728x90--->
 
                 <div class="checkout-right">
@@ -133,7 +133,7 @@
                         <tbody>
                         <?php $i = 1;?>
                         @foreach($cart_products as $product)
-                            <tr class="rem{{ $i }}">
+                            <tr class="rem{{ $i }} rem">
                                 <td class="invert">{{ $i }}</td>
                                 <?php
                                 $product_id = $product->id;
@@ -148,63 +148,117 @@
                                 <td class="invert">
                                     <div class="quantity">
                                         <div class="quantity-select">
-                                            <div class="entry value-minus">&nbsp;</div>
+                                            <div class="entry value-minus" data-id="{{ $product->id  }}">&nbsp;</div>
                                             <div class="entry value">{{ $product->quantity }}</div>
-                                            <div class="entry value-plus active">&nbsp;</div>
+                                            <div class="entry value-plus active" data-id="{{ $product->id  }}">&nbsp;</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="invert">{{ $product->name }}</td>
-                                <td class="invert">VND {{ $product->price }}</td>
-                                <td class="invert">VND {{ $product->price * $product->quantity}}</td>
+                                <td class="invert">VND {{ number_format($product->price) }}</td>
+                                <td class="invert">VND {{ number_format($product->price * $product->quantity)}}</td>
                                 <td class="invert">
                                     <div class="rem">
-                                        <div class="close1"> Remove </div>
+                                        <div class="close1" data-id="{{ $product->id }}"> Xóa </div>
+                                        @csrf
                                     </div>
-                                    <script>$(document).ready(function(c) {
-                                            $('.close1').on('click', function(c){
-                                                $('.rem1').fadeOut('slow', function(c){
-                                                    $('.rem1').remove();
-                                                });
-                                            });
-                                        });
-                                    </script>
+
                                 </td>
                             </tr>
                             <?php $i++; ?>
                         @endforeach
-                        <!--quantity-->
-                        <script>
-                            $('.value-plus').on('click', function(){
-                                var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-                                divUpd.text(newVal);
-                            });
 
-                            $('.value-minus').on('click', function(){
-                                var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-                                if(newVal>=1) divUpd.text(newVal);
-                            });
-                        </script>
                         <!--quantity-->
                         </tbody></table>
                 </div>
                 <div class="checkout-left">
                     <div class="checkout-left-basket">
-                        <h4>Continue to basket</h4>
+                        <h4><a href="{{ url('shop/payment') }}" style="color: #FFF">Thanh toán</a></h4>
                         <ul>
                             @foreach($cart_products as $product)
-                                <li>{{ $product->name }} <i>-</i> <span>VND {{ $product->price *  $product->quantity  }} </span></li>
+                                <li>{{ $product->name }} <i>-</i> <span>VND {{ number_format($product->price *  $product->quantity) }} </span></li>
                             @endforeach
-                            <li>Total <i>-</i> <span>$697.00</span></li>
+                            <li>Tổng tiền <i>-</i> <span>VND {{ number_format($total_payment) }}</span></li>
                         </ul>
                     </div>
                     <div class="checkout-right-basket">
-                        <a href="products.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
+                        <a href="{{ url('/') }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(c) {
+            $('.close1').on('click', function(c){
 
-@endsection    
+                var add_cart_url = '<?php echo url('shop/cart/remove') ?>';
+                var pid = $(this).data('id');
+                var token = $('input[name="_token"]').val();
+
+                var dataPost = { pid:pid, '_token': token};
+                var t = $(this);
+                //post đến controller
+                $.ajax({
+                    url: add_cart_url,
+                    dataType:'json',
+                    type:'POST',
+                    data: dataPost,
+                    success: function(result){
+                        t.closest('tr').fadeOut('slow', function(c){
+                            $(this).closest('tr').remove();
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!--quantity-->
+    <script>
+        $('.value-plus').on('click', function(){
+            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
+            divUpd.text(newVal);
+
+            var add_cart_url = '<?php echo url('shop/cart/update') ?>';
+            var pid = $(this).data('id');
+            var token = $('input[name="_token"]').val();
+
+            var dataPost = { pid:pid, quantity: newVal, '_token': token};
+            var t = $(this);
+            //post đến controller
+            $.ajax({
+                url: add_cart_url,
+                dataType:'json',
+                type:'POST',
+                data: dataPost,
+                success: function(result){
+                   location.reload();
+                }
+            });
+        });
+
+        $('.value-minus').on('click', function(){
+            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
+            if(newVal>=1) divUpd.text(newVal);
+
+            var add_cart_url = '<?php echo url('shop/cart/update') ?>';
+            var pid = $(this).data('id');
+            var token = $('input[name="_token"]').val();
+
+            var dataPost = { pid:pid, quantity: newVal, '_token': token};
+            var t = $(this);
+            //post đến controller
+            $.ajax({
+                url: add_cart_url,
+                dataType:'json',
+                type:'POST',
+                data: dataPost,
+                success: function(result){
+                    location.reload();
+                }
+            });
+        });
+    </script>
+@endsection
